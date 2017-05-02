@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+#: `brew head`:
+#:    List all formulas installed with the `--HEAD` option.
+#:
+#: `brew head --update`:
+#:    Reinstall all formulas installed with the `--HEAD` option.
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --update)
+      brew head | xargs brew reinstall
+      ;;
+    *)
+      echo "head: illegal option $1" >&2
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+brew info --json=v1 --installed | jq -rM '.[] | select(.installed[].version|startswith("HEAD")) | .name'
