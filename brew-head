@@ -3,12 +3,12 @@
 #: `brew head`:
 #:    List all formulas installed with the `--HEAD` option.
 #:
-#: `brew head --update`:
+#: `brew head --upgrade`:
 #:    Reinstall all formulas installed with the `--HEAD` option.
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --update)
+    --upgrade)
       brew head | xargs brew reinstall
       ;;
     *)
